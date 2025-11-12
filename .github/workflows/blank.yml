@@ -24,7 +24,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           # IMPORTANT: Replace 'YOUR_IAM_ROLE_ARN_GOES_HERE' with the actual ARN of your IAM role from AWS!
-          role-to-assume: YOUR_IAM_ROLE_ARN_GOES_HERE
+          role-to-assume: arn:aws:iam::379322108615:role/githubactions
           # This must be the AWS region where your SES sender identity is verified.
           aws-region: us-east-1 # Example: us-east-1
 
@@ -43,8 +43,8 @@ jobs:
           # The 'from' address MUST be an identity you verified in AWS SES.
           # The 'to' address will receive the email. If your SES account is in sandbox, 'to' must also be verified.
           aws ses send-email \
-            --from 'bhuvanraj107123@gmail.com' \
-            --destination 'ToAddresses="cherry107123@gmail.com"' \
+            --from 'abint8640@gmail.com' \
+            --destination 'ToAddresses="abin17@outlook.com"' \
             --message 'Subject={Data="✅ Build Success - ${{ github.repository }}"},Body={Text={Data="Build for ${{ github.repository }} on branch `${{ github.ref_name}}` was successful!\n\nCommit: `${{ github.sha}}`\nWorkflow Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}}' \
             --region us-east-1 # Ensure this matches your aws-region above
 
@@ -53,7 +53,7 @@ jobs:
         if: failure()
         run: |
           aws ses send-email \
-            --from 'bhuvanraj107123@gmail.com' \
-            --destination 'ToAddresses="cherry107123@gmail.com"' \
+            --from 'abint8640@gmail.com' \
+            --destination 'ToAddresses="abin17@outlook.com"' \
             --message 'Subject={Data="❌ Build FAILED - ${{ github.repository }}"},Body={Text={Data="*ALERT:* Build for ${{ github.repository }} on branch `${{ github.ref_name}}` *FAILED!*\n\nCommit: `${{ github.sha}}`\n*Please review logs:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}}' \
             --region us-east-1
